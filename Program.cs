@@ -9,9 +9,11 @@ namespace MedScheduler
         private static void Main()
         {
             //Create a var of your AppointmentScheduler class and initialize as new()
-			
-			//Boilerplate to welcome the end user
-            Console.WriteLine("=== Medical Appointment Scheduler ===");
+			var scheduler = new AppointmentScheduler();
+            //Create a logger for the application
+
+            //Boilerplate to welcome the end user
+            Console.WriteLine("=== Welcome To Medical Appointment Scheduler ===");
 
 			//User Input handled in a while loop
             bool running = true;
@@ -30,7 +32,14 @@ namespace MedScheduler
                 switch ((Console.ReadLine() ?? "").Trim())
                 {
                     //For Cases 1-6, call the appropriate method
-					//Every case needs a break; statement
+                    //Every case needs a break; statement
+                    case "1": AddAppointmentMenu(scheduler); break;
+                    case "2": AddAppointmentMenu(scheduler); break;
+                    case "3": AddAppointmentMenu(scheduler); break;
+                    case "4": AddAppointmentMenu(scheduler); break;
+                    case "5": AddAppointmentMenu(scheduler); break;
+                    case "6": AddAppointmentMenu(scheduler); break;
+
 
                     case "7": running = false; break;
                     default: Console.WriteLine("Invalid option."); break;
@@ -45,22 +54,73 @@ namespace MedScheduler
         private static void AddAppointmentMenu(AppointmentScheduler scheduler)
         {
             //Make a try catch block that uses Prompt() to get the user for all appointment information
-			//In the try block, create the appointment and report if succesful
-			//If it fails, create a catch exception for: 
-			//DoubleBookingException
-			//InvalidAppointmentTimeException
-			//ArgumentException
-			//Exception (the catch all for anything else)
-			
+            //In the try block, create the appointment and report if succesful
+            //If it fails, create a catch exception for: 
+            //DoubleBookingException
+            //InvalidAppointmentTimeException
+            //ArgumentException
+            //Exception (the catch all for anything else)
+
+            try
+            {
+                var paitent = Prompt("Patient Name: ");
+                var provider = Prompt("Provider Name: ");
+                var start = PromptDateTime("Start (yyyy-MM-dd HH:mm): ");
+                var end = PromptDateTime("End (yyyy-MM-dd HH:mm): ");
+
+                var appointment = new Appointment(paitent, provider, start, end);
+                scheduler.Add(appointment);
+
+                Console.WriteLine("Appointment added successfully!");
+            }
+			catch(DoubleBookingException ex)
+            {
+                Console.WriteLine($"Double booking error: {ex.Message}");
+            }
+            catch(InvalidAppointmentTimeException ex)
+            {
+                Console.WriteLine($"Invalid time error: {ex.Message}");
+            }
+            catch(ArgumentException ex)
+            {
+                Console.WriteLine($"Input error: {ex.Message}");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+            }
         }
 
         private static void CancelAppointmentMenu(AppointmentScheduler scheduler)
+
         {
             //Create a Try Catch block that prompts a user for an ID
-			//Inside the try block, check if the appointment exists and remove it
-			//If it doesn't exist, report that to the user and log it
-			//In the catch block, log an exception and write to the console that there was an error
-			
+            //Inside the try block, check if the appointment exists and remove it
+            //If it doesn't exist, report that to the user and log it
+            //In the catch block, log an exception and write to the console that there was an error
+
+            try
+            {
+                var input = Prompt("Enter Appointment ID: ");
+                if (!Guid.TryParse(input, out var id))
+                {
+                    Console.WriteLine("Invalid ID format.");
+                    return;
+                }
+
+                if (scheduler.Cancel(id))
+                {
+                    Console.WriteLine("Appointment cancelled successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Appointment not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error cancelling appointment: {ex.Message}");
+            }
 
         }
 
