@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -65,6 +66,7 @@ namespace MedScheduler
             {
                 var paitent = Prompt("Patient Name: ");
                 var provider = Prompt("Provider Name: ");
+                var room = Prompt("Room: ");
                 var start = PromptDateTime("Start (yyyy-MM-dd HH:mm): ");
                 var end = PromptDateTime("End (yyyy-MM-dd HH:mm): ");
 
@@ -127,47 +129,122 @@ namespace MedScheduler
         private static void RescheduleAppointmentMenu(AppointmentScheduler scheduler)
         {
             //Make a try catch block that uses Prompt() to get the user for an appointment ID
-			//Get the new start and the new end, then attempt to use reschedule. Report if succesful
-			//If it fails, create a catch exception for: 
-			//KeyNotFound
-			//DoubleBookingException
-			//InvalidAppointmentTimeException
-			//ArgumentException
-			//Exception (the catch all for anything else)
-			
+            //Get the new start and the new end, then attempt to use reschedule. Report if succesful
+            //If it fails, create a catch exception for: 
+            //KeyNotFound
+            //DoubleBookingException
+            //InvalidAppointmentTimeException
+            //ArgumentException
+            //Exception (the catch all for anything else)
+
+            try
+            {
+                var input = Prompt("Enter Appointment ID: ");
+                if (!Guid.TryParse(input, out var id))
+                {
+                    Console.WriteLine("Invalid ID format.");
+                    return;
+                }
+
+                var newStart = PromptDateTime("New Start (yyyy-MM-dd HH:mm): ");
+                var newEnd = PromptDateTime("New End (yyyy-MM-dd HH:mm): ");
+
+                scheduler.Reschedule(id, newStart, newEnd);
+
+                Console.WriteLine("Appointment rescheduled successfully.");
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.WriteLine("Appointment not found.");
+            }
+            catch (DoubleBookingException ex)
+            {
+                Console.WriteLine($"Double booking error: {ex.Message}");
+            }
+            catch (InvalidAppointmentTimeException ex)
+            {
+                Console.WriteLine($"Invalid time error: {ex.Message}");
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Input error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+            }
+
         }
 
         private static void ListAllMenu(AppointmentScheduler scheduler)
         {
             //convert all of the appointments into the scheduler into a list and store this in a var
-			//If the list is empty, report this to the user and return
-			
-			//If not, use a foreach to write the contents of the list below this line-
+            //If the list is empty, report this to the user and return
+
+            var list = scheduler.GetAll().ToList();
+
+            if (!list.Any())
+            {
+                Console.WriteLine("No appointments scheduled.");
+                return;
+            }
+
+            //If not, use a foreach to write the contents of the list below this line-
             Console.WriteLine("\n--- All Appointments ---");
 
+            foreach (var appointment in list)
+            {
+                Console.WriteLine(appointment);
+            }
         }
 
         private static void ListByProviderMenu(AppointmentScheduler scheduler)
         {
-			//Use Prompt() to get the provider's name from the end user
-			//Then store the list by provider in a var
-			//If the var is empty, report this to the end user
-			
-			//If not, use a foreach to write all appointments below this line-
+            //Use Prompt() to get the provider's name from the end user
+            //Then store the list by provider in a var
+            //If the var is empty, report this to the end user
+
+            var provider = Prompt("Provider Name: ");
+            var list = scheduler.ListByProvider(provider).ToList();
+
+            if (!list.Any())
+            {
+                Console.WriteLine("No appointments found for that provider.");
+                return;
+            }
+
+            //If not, use a foreach to write all appointments below this line-
             Console.WriteLine($"\n--- Appointments for {provider} ---");
 
+            foreach (var appointment in list)
+            {
+                Console.WriteLine(appointment);
+            }
         }
 
         private static void ListByDayMenu(AppointmentScheduler scheduler)
         {
             //Use the PromptDateTime method and store the value in a var. Use .Date to get the day
-			//Store the value of ListByDay(day).ToList() in a var
-			//Report if there are no dates that day and return
-			
-			
-			//If not, use a foreach to write the list of all appointments below this line-
+            //Store the value of ListByDay(day).ToList() in a var
+            //Report if there are no dates that day and return
+
+            var day = PromptDateTime("Enter date (yyyy-MM-dd HH:mm): ").Date;
+            var list = scheduler.ListByDay(day).ToList();
+
+            if (!list.Any())
+            {
+                Console.WriteLine("No appointments scheduled for that day.");
+                return;
+            }
+
+            //If not, use a foreach to write the list of all appointments below this line-
             Console.WriteLine($"\n--- Appointments on {day:yyyy-MM-dd} ---");
-			
+
+            foreach (var appointment in list)
+            {
+                Console.WriteLine(appointment);
+            }
+
         }
 
 		//!!! No need to modify these methods. They are there to help you
