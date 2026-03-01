@@ -35,11 +35,11 @@ namespace MedScheduler
                     //For Cases 1-6, call the appropriate method
                     //Every case needs a break; statement
                     case "1": AddAppointmentMenu(scheduler); break;
-                    case "2": AddAppointmentMenu(scheduler); break;
-                    case "3": AddAppointmentMenu(scheduler); break;
-                    case "4": AddAppointmentMenu(scheduler); break;
-                    case "5": AddAppointmentMenu(scheduler); break;
-                    case "6": AddAppointmentMenu(scheduler); break;
+                    case "2": CancelAppointmentMenu(scheduler); break;
+                    case "3": RescheduleAppointmentMenu(scheduler); break;
+                    case "4": ListAllMenu(scheduler); break;
+                    case "5": ListByProviderMenu(scheduler); break;
+                    case "6": ListByDayMenu(scheduler); break;
 
 
                     case "7": running = false; break;
