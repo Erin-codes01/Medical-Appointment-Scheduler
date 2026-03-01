@@ -15,20 +15,36 @@ namespace MedScheduler
 
 		//Create a Public IReadOnlyList called Appointments. Call the private list as a Public List .AsReadOnly()
 
+        public IReadOnlyList<Appointment> Appointments => _appointments.AsReadOnly();
 
-		//Create a public void to add appointments. 
-		//Be sure to run the business rules methods, ValidateTimeRules and EnsureNoConflicts
-		//Then add the appointment to the private list and report using the logger
+        //Create a public void to add appointments. 
+        //Be sure to run the business rules methods, ValidateTimeRules and EnsureNoConflicts
+        //Then add the appointment to the private list and report using the logger
 
-		
-		
-		//Make a boolean method to cancel an appointment, passing in a string for the id
-		//Iterate over the list and if the id doesn't exist return false
-		//If it exists, remove the appointment, log the information and return true
+        public void Add(Appointment appointment)
+        {
+            ValidateTimeRules(appointment.Start, appointment.End);
+            EnsureNoConflicts(appointment, excludeId: null);
 
+            _appointments.Add(appointment);
 
+            Logger.Info($"Added {appointment}");
+        }
 
-		//Provided as an example for the other methods. No change needed.
+        //Make a boolean method to cancel an appointment, passing in a string for the id
+        //Iterate over the list and if the id doesn't exist return false
+        //If it exists, remove the appointment, log the information and return true
+
+        public bool Cancel(string id)
+        {
+            var appt = _appointments.FirstOrDefault(a => a.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
+            if (appt == null) return false;
+            _appointments.Remove(appt);
+            Logger.Info($"Canceled {appt}");
+            return true;
+        }
+
+        //Provided as an example for the other methods. No change needed.
         public void Reschedule(string id, DateTime newStart, DateTime newEnd)
         {
             var appt = _appointments.FirstOrDefault(a => a.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
@@ -48,7 +64,9 @@ namespace MedScheduler
 		//Make an IEnumerable of type Appointment called ListByProvider and pass in a string of the provider's named
 		//Make a list of any appointment that provider is in and return them in order of start time
 		
-		
+		public IEnumerable<Appointment> ListByProvider(string providerName)
+        {
+            //Create a variable that gets the provider name from the parameter.
 
         public IEnumerable<Appointment> ListByDay(DateTime day)
         {
