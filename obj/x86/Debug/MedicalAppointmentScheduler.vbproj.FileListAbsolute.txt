@@ -1,0 +1,2 @@
+C:\Users\sweat\source\repos\Medical-Appointment-Scheduler\obj\x86\Debug\MedicalAppointmentScheduler.vbproj.AssemblyReference.cache
+C:\Users\sweat\source\repos\Medical-Appointment-Scheduler\obj\x86\Debug\MedicalAppointmentScheduler.vbproj.CoreCompileInputs.cache
