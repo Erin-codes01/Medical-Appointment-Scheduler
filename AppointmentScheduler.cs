@@ -61,24 +61,37 @@ namespace MedScheduler
             Logger.Info($"Rescheduled {before} -> {appt}");
         }
 
-		//Make an IEnumerable of type Appointment called ListByProvider and pass in a string of the provider's named
-		//Make a list of any appointment that provider is in and return them in order of start time
-		
-		public IEnumerable<Appointment> ListByProvider(string providerName)
+        //Make an IEnumerable of type Appointment called ListByProvider and pass in a string of the provider's named
+        //Make a list of any appointment that provider is in and return them in order of start time
+
+        public IEnumerable<Appointment> ListByProvider(string providerName)
         {
+            return _appointments
+                .Where(a => a.ProviderName.Equals(providerName, StringComparison.OrdinalIgnoreCase))
+                .OrderBy(a => a.Start);
+        }
             //Create a variable that gets the provider name from the parameter.
 
         public IEnumerable<Appointment> ListByDay(DateTime day)
         {
             //Create a variable that gets day.Date from the DateTime in the Parameter.
 			//Then return the readonly list ordered by Start Date on the same day
-			
+
+			var targetDate = day.Date;
+
+            return _appointments
+                .Where(a => a.Start.Date == targetDate)
+                .OrderBy(a => a.Start);
         }
 
 		//Create a public IEnumarable of Appointments named All(). Return the list ordered by start time
 
+        public IEnumerable<Appointment> All()
+        {
+            return _appointments.OrderBy(a => a.Start);
+        }
 
-		//!!! You should not modify anything below this line
+        //!!! You should not modify anything below this line
         // ---------- Business Rules ----------
 
         private void ValidateTimeRules(DateTime start, DateTime end)
