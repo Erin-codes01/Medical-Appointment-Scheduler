@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -10,13 +10,13 @@ namespace MedScheduler
         private static void Main()
         {
             //Create a var of your AppointmentScheduler class and initialize as new()
-			var scheduler = new AppointmentScheduler();
+            var scheduler = new AppointmentScheduler();
             //Create a logger for the application
 
             //Boilerplate to welcome the end user
             Console.WriteLine("=== Welcome To Medical Appointment Scheduler ===");
 
-			//User Input handled in a while loop
+            //User Input handled in a while loop
             bool running = true;
             while (running)
             {
@@ -46,7 +46,7 @@ namespace MedScheduler
                     default: Console.WriteLine("Invalid option."); break;
                 }
             }
-			//Leave the user a Goodbye Message
+            //Leave the user a Goodbye Message
             Console.WriteLine("Goodbye!");
         }
 
@@ -75,19 +75,19 @@ namespace MedScheduler
 
                 Console.WriteLine("Appointment added successfully!");
             }
-			catch(DoubleBookingException ex)
+            catch (DoubleBookingException ex)
             {
                 Console.WriteLine($"Double booking error: {ex.Message}");
             }
-            catch(InvalidAppointmentTimeException ex)
+            catch (InvalidAppointmentTimeException ex)
             {
                 Console.WriteLine($"Invalid time error: {ex.Message}");
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 Console.WriteLine($"Input error: {ex.Message}");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"An unexpected error occurred: {ex.Message}");
             }
@@ -247,7 +247,7 @@ namespace MedScheduler
 
         }
 
-		//!!! No need to modify these methods. They are there to help you
+        //!!! No need to modify these methods. They are there to help you
         // ---------- Helpers ----------
 
         private static string Prompt(string label)

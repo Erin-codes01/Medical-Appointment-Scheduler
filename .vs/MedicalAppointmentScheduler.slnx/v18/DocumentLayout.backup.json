@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\sweat\\source\\repos\\Medical-Appointment-Scheduler\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A11C378C-E3E8-602F-0FC0-AE08D4DAA34F}|MedicalAppointmentScheduler.vbproj|c:\\users\\sweat\\source\\repos\\medical-appointment-scheduler\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A11C378C-E3E8-602F-0FC0-AE08D4DAA34F}|MedicalAppointmentScheduler.vbproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\sweat\\source\\repos\\Medical-Appointment-Scheduler\\MedScheduler\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:MedScheduler\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -32,13 +32,13 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\sweat\\source\\repos\\Medical-Appointment-Scheduler\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\sweat\\source\\repos\\Medical-Appointment-Scheduler\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\sweat\\source\\repos\\Medical-Appointment-Scheduler\\MedScheduler\\Program.cs",
+              "RelativeDocumentMoniker": "MedScheduler\\Program.cs",
+              "ToolTip": "C:\\Users\\sweat\\source\\repos\\Medical-Appointment-Scheduler\\MedScheduler\\Program.cs",
+              "RelativeToolTip": "MedScheduler\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABABAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-01T03:36:35.76Z",
+              "WhenOpened": "2026-03-01T03:48:20.85Z",
               "EditorCaption": ""
             }
           ]
